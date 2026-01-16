@@ -99,7 +99,7 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full">
 
-            <a href="#services" className="flex-1">
+            <a href="#contact" className="flex-1">
             <Button variant="hero" size="xl" className="w-full">
               Get a Free Quote
             </Button>
