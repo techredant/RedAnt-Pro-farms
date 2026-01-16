@@ -1,29 +1,41 @@
-import { Wheat, Truck, BarChart3, Wrench } from "lucide-react";
+import { Wheat, Truck, BarChart3, Wrench, Layers, Leaf } from "lucide-react";
 
 const services = [
   {
-    icon: Wheat,
-    title: "Silage Harvesting",
+    icon: Layers, // placeholder for Land Preparation & Planting
+    title: "Land Preparation & Planting",
     description:
-      "State-of-the-art harvesting equipment and experienced operators ensure optimal cutting and processing for maximum nutritional value.",
+      "Expert soil preparation, plowing, and planting services to ensure optimal crop growth from day one.",
+  },
+  {
+    icon: Wheat,
+    title: "Hay Silage Harvesting",
+    description:
+      "State-of-the-art harvesting equipment and experienced operators ensure maximum nutritional value for your livestock.",
+  },
+  {
+    icon: Leaf,
+    title: "Animal Feeds",
+    description:
+      "High-quality, balanced feed solutions to improve livestock health and productivity.",
   },
   {
     icon: Truck,
     title: "Transport & Delivery",
     description:
-      "Reliable fleet for efficient transport of harvested silage from field to storage. Timely delivery guaranteed.",
-  },
-  {
-    icon: BarChart3,
-    title: "Quality Consulting",
-    description:
-      "Expert advice on crop timing, storage methods, and fermentation processes to maximize silage quality and livestock benefits.",
+      "Reliable fleet ensures timely delivery of silage, feed, and other agricultural products directly to your farm.",
   },
   {
     icon: Wrench,
-    title: "Equipment Maintenance",
+    title: "Equipment Maintenance & Leasing",
     description:
-      "Keep your silage equipment running at peak performance with our professional maintenance and repair services.",
+      "Keep your machinery running at peak performance with professional maintenance and lease modern equipment when needed.",
+  },
+  {
+    icon: BarChart3,
+    title: "Agri-Consultancy (Soil Testing)",
+    description:
+      "Expert analysis and advice on soil health, crop planning, and sustainable farming practices for better yields.",
   },
 ];
 
@@ -40,13 +52,12 @@ const ServicesSection = () => {
             OUR SERVICES
           </h2>
           <p className="text-muted-foreground text-lg">
-            Comprehensive silage solutions tailored to your farm's unique needs.
-            From harvest to storage, we've got you covered.
+            Comprehensive agricultural solutions tailored to your farm's needs. From preparation to consultancy, we've got you covered.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
               key={service.title}
