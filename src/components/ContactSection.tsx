@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
- import axios from "axios"; // uncomment when backend is ready
+import axios from 'axios';
 
 const ContactSection = () => {
   const [name, setName] = useState("");
@@ -13,40 +13,18 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    if (!name || !email || !phone || !message) {
-      alert("Please fill in all required fields.");
-      setLoading(false);
-      return;
-    }
+    const Email = email;
+    const Name = name;
+    const Phone = phone;
+    const Message = message;
 
     try {
-      const payload = {
-        Name: name,
-        Email: email,
-        phone,
-        message,
-      };
-
-      console.log("Sending data:", payload);
-
-      const response = await fetch(
-        "https://red-ant-pro-farms.vercel.app/api/send-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to send email");
-      }
-
-      const data = await response.json();
-      console.log("Server response:", data);
+      const response = await axios.post('https://red-ant-pro-farms.vercel.app/api/send-email', {
+        Email,
+        Name,
+        Phone,
+        Message,
+      });
 
       alert("Your request has been sent successfully!");
 
@@ -56,8 +34,8 @@ const ContactSection = () => {
       setPhone("");
       setMessage("");
     } catch (error) {
-      console.error("There was an error sending the request:", error);
-      alert("Failed to send message. Please try again.");
+      console.error('There was an error sending the request:', error);
+      alert('Failed to send request.');
     } finally {
       setLoading(false);
     }
@@ -67,6 +45,7 @@ const ContactSection = () => {
     <section id="contact" className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
           {/* Contact Info */}
           <div>
             <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider rounded mb-4">
@@ -151,7 +130,6 @@ const ContactSection = () => {
                 className="w-full px-4 py-3 rounded-lg border"
               />
 
-
               <input
                 type="email"
                 placeholder="Email Address"
@@ -176,11 +154,18 @@ const ContactSection = () => {
                 className="w-full px-4 py-3 rounded-lg border resize-none"
               />
 
-              <Button type="submit" variant="hero" size="xl" className="w-full" disabled={loading}>
+              <Button
+                type="submit"
+                variant="hero"
+                size="xl"
+                className="w-full"
+                disabled={loading}
+              >
                 {loading ? "Sending..." : "Submit Request"}
               </Button>
             </form>
           </div>
+
         </div>
       </div>
     </section>
