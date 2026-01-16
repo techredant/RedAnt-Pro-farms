@@ -19,10 +19,12 @@ const Header = () => {
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2">
             <span className="font-display text-2xl md:text-3xl tracking-wide">
-              <span className="text-primary">REDANT</span>
-              <span className="text-secondary"> PRO FARM</span>
+              <span className="text-green-700">REDANT</span>
+              <span className="text-amber-600"> PRO FARM</span>
+              <span className="text-gray-300 text-xs"> SERVICES</span>
             </span>
           </a>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
@@ -30,7 +32,7 @@ const Header = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="font-medium text-gray-400 hover:text-primary transition-colors duration-200"
+                className="font-medium  hover:text-primary transition-colors duration-200"
               >
                 {link.name}
               </a>
@@ -60,13 +62,13 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
+          <div className="md:hidden py-4  animate-fade-in">
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+                  className="font-medium  hover:text-primary transition-colors py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}

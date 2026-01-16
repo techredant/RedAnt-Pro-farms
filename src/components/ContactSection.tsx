@@ -1,7 +1,68 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+ import axios from "axios"; // uncomment when backend is ready
 
 const ContactSection = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!name || !email || !phone || !message) {
+      alert("Please fill in all required fields.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const payload = {
+        Name: name,
+        Email: email,
+        phone,
+        message,
+      };
+
+      console.log("Sending data:", payload);
+
+      const response = await fetch(
+        "https://red-ant-pro-farms.vercel.app/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+
+      const data = await response.json();
+      console.log("Server response:", data);
+
+      alert("Your request has been sent successfully!");
+
+      // Reset form
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+    } catch (error) {
+      console.error("There was an error sending the request:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
@@ -11,59 +72,64 @@ const ContactSection = () => {
             <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider rounded mb-4">
               Get In Touch
             </span>
+
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
               READY TO
               <br />
               <span className="text-primary">GET STARTED?</span>
             </h2>
+
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Contact us today for a free consultation and quote. Our team is ready to 
-              help you maximize your silage quality and farm productivity.
+              Contact us today for a free consultation and quote. Our team is ready
+              to help you maximize your silage quality and farm productivity.
             </p>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Phone</div>
-                  <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                    +1 (234) ++++++
+                  <div className="font-semibold">Phone</div>
+                  <a href="tel:+254724230663" className="text-muted-foreground hover:text-primary">
+                    0724 230 663
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Email</div>
-                  <a href="mailto:info@redantprofarm.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    info@redantprofarm.com
+                  <div className="font-semibold">Email</div>
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=antfarmservice@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary"
+                  >
+                    antfarmservice@gmail.com
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Location</div>
-                  <span className="text-muted-foreground">
-                    Serving farms across the region
-                  </span>
+                  <div className="font-semibold">Location</div>
+                  <span className="text-muted-foreground">Mulot</span>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Clock className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="font-semibold text-foreground">Hours</div>
+                  <div className="font-semibold">Hours</div>
                   <span className="text-muted-foreground">
                     24/7 during harvest season
                   </span>
@@ -74,56 +140,44 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <div className="bg-card rounded-2xl p-8 shadow-card">
-            <h3 className="font-display text-2xl text-foreground mb-6">
-              REQUEST A QUOTE
-            </h3>
-            <form className="space-y-5">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="John Doe"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="john@example.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="+(254) 12345678"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
-                  placeholder="Tell us about your farm and silage needs..."
-                />
-              </div>
-              <Button variant="hero" size="xl" className="w-full">
-                Submit Request
+            <h3 className="font-display text-2xl mb-6">REQUEST A QUOTE</h3>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border"
+              />
+
+
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border"
+              />
+
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border"
+              />
+
+              <textarea
+                rows={4}
+                placeholder="Tell us about your farm and silage needs..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border resize-none"
+              />
+
+              <Button type="submit" variant="hero" size="xl" className="w-full" disabled={loading}>
+                {loading ? "Sending..." : "Submit Request"}
               </Button>
             </form>
           </div>
