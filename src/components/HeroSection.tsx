@@ -118,9 +118,11 @@ const HeroSection = () => {
             <Button variant="hero" size="xl">
               Get a Free Quote
             </Button>
+            <a href="#services">
             <Button variant="heroOutline" size="xl">
               Our Services
             </Button>
+            </a>
           </div>
         </div>
       </div>
