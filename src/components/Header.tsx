@@ -13,7 +13,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/10 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/10 backdrop-blur-xl shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -39,7 +39,7 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="tel:+1234567890" className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <a href="#contact" className="flex items-center gap-2 text-sm font-medium text-foreground">
               <Phone className="w-4 h-4 text-primary" />
               <span>Call Us Today</span>
             </a>
@@ -72,9 +72,12 @@ const Header = () => {
                   {link.name}
                 </a>
               ))}
-              <Button variant="default" className="mt-2">
+              <a href="#contact">
+                <Button variant="default" className="mt-2">
                 Get Quote
               </Button>
+              </a>
+              
             </nav>
           </div>
         )}

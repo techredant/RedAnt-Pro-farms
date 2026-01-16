@@ -111,8 +111,7 @@ const HeroSection = () => {
             <span className="text-harvest-gold">FARM SERVICES</span>
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-xl mb-8">
-            Expert silage harvesting, storage, and consulting services. 
-            We help farmers maximize their fodder quality and livestock nutrition.
+            Expert hay/silage harvesting, Farm preparation, planting and harvesting,  storage, and consulting services. We help farmers maximize their fodder quality and livestock nutrition.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button variant="hero" size="xl">

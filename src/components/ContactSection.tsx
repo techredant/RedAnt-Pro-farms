@@ -29,7 +29,7 @@ const ContactSection = () => {
                 <div>
                   <div className="font-semibold text-foreground">Phone</div>
                   <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                    +1 (234) 567-890
+                    +1 (234) ++++++
                   </a>
                 </div>
               </div>
@@ -108,7 +108,7 @@ const ContactSection = () => {
                   type="tel"
                   id="phone"
                   className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                  placeholder="+1 (234) 567-890"
+                  placeholder="+(254) 12345678"
                 />
               </div>
               <div>
