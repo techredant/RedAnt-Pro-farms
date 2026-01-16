@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import axios from 'axios';
 
 const ContactSection = () => {
   const [name, setName] = useState("");
@@ -13,18 +12,40 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const Email = email;
-    const Name = name;
-    const Phone = phone;
-    const Message = message;
+
+    if (!name || !email || !phone || !message) {
+      alert("Please fill in all required fields.");
+      setLoading(false);
+      return;
+    }
 
     try {
-      const response = await axios.post('https://red-ant-pro-farms.vercel.app/api/send-email', {
-        Email,
-        Name,
-        Phone,
-        Message,
-      });
+      const payload = {
+        Name: name,
+        Email: email,
+        phone,
+        message,
+      };
+
+      console.log("Sending data:", payload);
+
+      const response = await fetch(
+        "http://localhost:8080/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Server response:", data,);
+     
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
 
       alert("Your request has been sent successfully!");
 
@@ -33,9 +54,22 @@ const ContactSection = () => {
       setEmail("");
       setPhone("");
       setMessage("");
-    } catch (error) {
-      console.error('There was an error sending the request:', error);
-      alert('Failed to send request.');
+    } catch (error: any) {
+      // Log the full error object to the console
+      console.error("Full error:", error);
+
+      // If it’s a fetch Response, try to get the body
+      if (error?.response) {
+        console.error("Response data:", error.response.data);
+      }
+
+      // Show a more helpful message in the alert
+      const errorMessage =
+        error?.message ||
+        (error?.response?.data?.message) ||
+        "Failed to send message. Please try again.";
+
+      alert("error "+ errorMessage);
     } finally {
       setLoading(false);
     }
@@ -45,7 +79,6 @@ const ContactSection = () => {
     <section id="contact" className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
           {/* Contact Info */}
           <div>
             <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider rounded mb-4">
@@ -130,6 +163,7 @@ const ContactSection = () => {
                 className="w-full px-4 py-3 rounded-lg border"
               />
 
+
               <input
                 type="email"
                 placeholder="Email Address"
@@ -154,18 +188,11 @@ const ContactSection = () => {
                 className="w-full px-4 py-3 rounded-lg border resize-none"
               />
 
-              <Button
-                type="submit"
-                variant="hero"
-                size="xl"
-                className="w-full"
-                disabled={loading}
-              >
+              <Button type="submit" variant="hero" size="xl" className="w-full" disabled={loading}>
                 {loading ? "Sending..." : "Submit Request"}
               </Button>
             </form>
           </div>
-
         </div>
       </div>
     </section>
