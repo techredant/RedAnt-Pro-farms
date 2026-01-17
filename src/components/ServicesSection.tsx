@@ -48,9 +48,10 @@ const ServicesSection = () => {
           <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-sm font-semibold uppercase tracking-wider rounded mb-4">
             What We Do
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 drop-shadow-lg">
             OUR SERVICES
           </h2>
+
           <p className="text-muted-foreground text-lg">
             Comprehensive agricultural solutions tailored to your farm's needs. From preparation to consultancy, we've got you covered.
           </p>

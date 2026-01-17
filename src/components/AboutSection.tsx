@@ -58,9 +58,9 @@ const AboutSection = () => {
             </span>
 
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6">
-              THE REDANT
+              The RedAnt
               <br />
-              <span className="text-harvest-gold">ADVANTAGE</span>
+              <span className="text-harvest-gold">Advantage</span>
             </h2>
 
             <p className="text-secondary-foreground/90 text-lg mb-8 leading-relaxed">
